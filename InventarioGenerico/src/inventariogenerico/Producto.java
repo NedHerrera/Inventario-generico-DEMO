@@ -49,7 +49,7 @@ public class Producto
     public String show()
     {
         return "\nNombre: "+this.nombre+" Id: "+this.id+" Coste: "+this.coste+" Cantidad: "
-            +this.cantidad+" Fecha de ingreso: "+this.calI+" Fecha de caducidad: "+this.calF;
+            +this.cantidad;//+" Fecha de ingreso: "+this.calI+" Fecha de caducidad: "+this.calF;
     }
     
     

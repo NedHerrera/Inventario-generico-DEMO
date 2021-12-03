@@ -29,6 +29,7 @@ public class Inventario extends javax.swing.JFrame {
      */
     public Inventario() {
         initComponents();
+        showProduct();
         this.setLocationRelativeTo(null);
     }
     
@@ -349,12 +350,16 @@ public class Inventario extends javax.swing.JFrame {
         // TODO add your handling code here:
         boolean indicador = false;
         //Paso 1 tomar el texto de todos los componentes
-        try{
-        cantidad= Integer.parseInt(cantidadField.getText());
-        coste= Integer.parseInt(CostoField.getText());
-    }catch (Exception ex){
-        mensaje("Favor de ingresar solamente numeros\n" + ex.getMessage());
-    }
+        try
+        {
+            cantidad= Integer.parseInt(cantidadField.getText());
+            coste= Double.parseDouble(CostoField.getText());
+        }
+        catch (Exception ex)
+        {
+            mensaje("Favor de ingresar solamente numeros\n" + ex.getMessage());
+        }
+        
         diaIngreso=diaI.getSelectedIndex();
         mesIngreso=mesI.getSelectedIndex();
         anioIngreso=anioI.getSelectedIndex();
@@ -364,12 +369,19 @@ public class Inventario extends javax.swing.JFrame {
         anioFinal=anioF.getSelectedIndex();
         calF.set(anioFinal+2020,mesFinal,diaFinal);//Definir la fecha de final en un objeto de calendario
         nombre=productoField.getText();
-        for (int i = 0; i < contador_productos; i++) {
+        id=idField.getText();
+        
+        InventarioGenerico.BD.newProducto(nombre, id, coste, cantidad, calI, calF); 
+        
+        showProduct();
+        
+        /*for (int i = 0; i < contador_productos; i++) {
             if (BaseDeDatos.productos[i].getNombre().equals(nombre)) {
                 BaseDeDatos.productos[i].agregar(cantidad);
                 indicador = true;
             }
-        }return indicador;
+        }
+        //return indicador;
         id=idField.getText();
         System.out.println("Los valores a enviar son: "+nombre+", "+cantidad+", "+coste+", "+calI+", "+calF);
         if(productoField.getText().isEmpty() || cantidadField.getText().isEmpty() || CostoField.getText().isEmpty()){
@@ -378,7 +390,7 @@ public class Inventario extends javax.swing.JFrame {
             //Paso 2 Crear el objeto
            BaseDeDatos.productos[BaseDeDatos.contador_productos]=new Producto(nombre, id, coste, cantidad,calI,calF);
            BaseDeDatos.contador_productos++;
-        }
+        }*/
     }//GEN-LAST:event_AgregarActionPerformed
 
     /*public boolean agregarProducto(String nombre, int cantidad_a_agregar)
@@ -435,7 +447,10 @@ public class Inventario extends javax.swing.JFrame {
 
     private void QuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuitarActionPerformed
         // TODO add your handling code here:
-        
+        String nombre_del_producto = productoField.getText();
+        int cantidad_ = Integer.parseInt(cantidadField.getText());
+        InventarioGenerico.BD.quitarProducto(nombre_del_producto, cantidad_);
+        showProduct();
     }//GEN-LAST:event_QuitarActionPerformed
 
     /**
@@ -509,4 +524,11 @@ public class Inventario extends javax.swing.JFrame {
     private javax.swing.JTextField productoField;
     private javax.swing.JButton regresar;
     // End of variables declaration//GEN-END:variables
+
+    public void showProduct()
+    {
+        listaTextArea.setText("");
+        listaTextArea.setText(InventarioGenerico.BD.showProductos());
+    }
+
 }

@@ -5,6 +5,8 @@
  */
 package inventariogenerico;
 
+import java.util.Calendar;
+
 /**
  *
  * @author tesco
@@ -16,20 +18,27 @@ public class InventarioGenerico
     
     public static void main(String[] args) 
     {
+        Calendar calI= Calendar.getInstance(), calF= Calendar.getInstance();
         BD.newGerente("admin", "admin@admin.com", "1234");
         BD.newEmpleado("empleado", "empleado@empleado.com", "1234");
         BD.login("admin@admin.com", "1234");
         BD.whoami();
-        //BD.newProducto("","Galletas", 5);
+        calI.set(1+2020,5,6);
+        calF.set(1+2020,5,6);
+        BD.newProducto("galleta1","id1", 5.2, 5, calI, calF);
+        BD.newProducto("galleta2","id2", 5.2, 5, calI, calF);
         //BD.showProductos();
         //BD.quitarProducto("1", 11);
-        BD.showProductos();
+        //System.out.println("Lista:" + BD.showProductos());
 
         
-        LoginWindow lw = new LoginWindow();
-        lw.setVisible(true);
+        //LoginWindow lw = new LoginWindow();
+        //lw.setVisible(true);
         
-        System.out.println("adios");
+        Inventario inv = new Inventario();
+        inv.setVisible(true);
+        
+        //System.out.println("adios");
         
     }
     //Otro metodo que tiene que ver con la ventana

@@ -97,18 +97,36 @@ public class BaseDeDatos
     
     public void newProducto(String nombre, String id, double coste, int cantidad, Calendar calI, Calendar calF)
     {
-        Producto new_producto = new Producto(nombre, id, coste, cantidad, calI, calF);
-        this.productos[contador_productos] = new_producto;
-        this.contador_productos++;
+        boolean indicador = false;
+        for (int i = 0; i < contador_productos; i++) 
+        {
+            if (this.productos[i].getNombre().equals(nombre)) {
+                this.productos[i].agregar(cantidad);
+                indicador = true;
+                break;
+            }
+        }
+        
+        if (indicador) 
+        {
+        }
+        else
+        {
+            Producto new_producto = new Producto(nombre, id, coste, cantidad, calI, calF);
+            this.productos[contador_productos] = new_producto;
+            this.contador_productos++;
+        }
     }
     
     
-    public void showProductos()
+    public String showProductos()
     {
+        String recolector = "";
         for (int i = 0; i < contador_productos; i++) 
         {
-            this.productos[i].show();
+            recolector = recolector + this.productos[i].show();
         }
+        return recolector;
     }
     
     public boolean agregarProducto(String nombre, int cantidad_a_agregar)
