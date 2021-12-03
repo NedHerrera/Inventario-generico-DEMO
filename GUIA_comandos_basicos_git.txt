@@ -1,0 +1,5 @@
+// para clonar un repo
+git clone url_del_repo.git
+
+// para saber el status del repo
+git status
