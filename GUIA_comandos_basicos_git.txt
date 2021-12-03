@@ -3,3 +3,15 @@ git clone url_del_repo.git
 
 // para saber el status del repo
 git status
+
+//Comando para agregar cambio
+git add *
+
+//Guardar cambios
+git commit -m 'Mensaje'
+
+//Publicar cambios
+git push
+
+//Obtener cambios
+git pull
